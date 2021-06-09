@@ -6,7 +6,7 @@ terraform {
       source = "hashicorp/aws"
       version = "~> 3.43.0"
 
-      configuration_aliases = [ aws.cloudfront  ]
+      configuration_aliases = [ aws.cloudfront ]
     }
   }
 }
