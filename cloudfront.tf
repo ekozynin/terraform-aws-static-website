@@ -1,5 +1,9 @@
 resource "aws_cloudfront_origin_access_identity" "cloudfront_oai" {
   comment = "CloudFront OAI for ${aws_s3_bucket.public_assets.bucket}"
+
+  lifecycle {
+    ignore_changes = [etag]
+  }
 }
 
 resource "aws_cloudfront_distribution" "www" {
