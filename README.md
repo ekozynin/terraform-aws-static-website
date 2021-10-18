@@ -5,7 +5,7 @@ Example usage:
 ```hcl
 module "static-site" {
   source = "ekozynin/static-website/aws"
-  version = "~> 1.0.1"
+  version = "~> 1.0.2"
   providers = {
     aws = aws,
     aws.cloudfront = aws.cloudfront
