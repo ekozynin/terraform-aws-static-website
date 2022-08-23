@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "logs" {
   force_destroy = var.force_destroy
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "public_assets_encryption" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "logs_encryption" {
   bucket = "${var.domain_name}-logs"
   rule {
     apply_server_side_encryption_by_default {
@@ -12,12 +12,12 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "public_assets_enc
   }
 }
 
-resource "aws_s3_bucket_acl" "public_assets_acl" {
+resource "aws_s3_bucket_acl" "logs_acl" {
   bucket = "${var.domain_name}-logs"
   acl    = "log-delivery-write"
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "public_assets_lifecycle" {
+resource "aws_s3_bucket_lifecycle_configuration" "logs_lifecycle" {
   bucket = "${var.domain_name}-logs"
 
   rule {
