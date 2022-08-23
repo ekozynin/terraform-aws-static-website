@@ -23,10 +23,11 @@ module "static-site" {
 To upload additional assets to the website, you can use the following approach:
 
 ```hcl
-resource "aws_s3_bucket_object" "my_file_upload" {
+resource "aws_s3_object" "my_file_upload" {
   bucket = module.static_website.assets_bucket
   key    = "my_file.html"
   source = "path-to-file/my_file.html"
   content_type = "text/html"
+  etag = filemd5("path-to-file/my_file.html")
 }
 ```
