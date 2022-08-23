@@ -20,14 +20,19 @@ module "static-site" {
 }
 ```
 
-To upload additional assets to the website, you can use the following approach:
+To upload assets to the website, use the following approach:
+
+- in your project create folder `content`
+- use the following snippet to upload all html files from the folder to s3 bucket
 
 ```hcl
-resource "aws_s3_object" "my_file_upload" {
-  bucket = module.static_website.assets_bucket
-  key    = "my_file.html"
-  source = "path-to-file/my_file.html"
+resource "aws_s3_object" "content" {
+  for_each = fileset("./content", "**/*.html")
+
+  bucket       = module.static-site.assets_bucket
+  key          = each.key
+  source       = "./content/${each.value}"
   content_type = "text/html"
-  etag = filemd5("path-to-file/my_file.html")
+  etag         = filemd5("./content/${each.value}")
 }
 ```

@@ -41,17 +41,3 @@ data "aws_iam_policy_document" "public_assets" {
   }
 }
 
-// upload default index.html & 404.html files to the s3 bucket
-resource "aws_s3_object" "index_file_upload" {
-  bucket       = aws_s3_bucket.public_assets.bucket
-  key          = "index.html"
-  source       = "${path.module}/html/index.html"
-  content_type = "text/html"
-}
-
-resource "aws_s3_object" "error_file_upload" {
-  bucket       = aws_s3_bucket.public_assets.bucket
-  key          = "404.html"
-  source       = "${path.module}/html/404.html"
-  content_type = "text/html"
-}
