@@ -3,6 +3,11 @@ resource "aws_s3_bucket" "public_assets" {
   force_destroy = var.force_destroy
 }
 
+resource "aws_s3_bucket_acl" "public_assets" {
+  bucket = aws_s3_bucket.public_assets.id
+  acl    = "private"
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "public_assets" {
   bucket = "${var.domain_name}-public-assets"
   rule {
@@ -16,11 +21,6 @@ resource "aws_s3_bucket_logging" "public_assets" {
   bucket        = "${var.domain_name}-public-assets"
   target_bucket = aws_s3_bucket.logs.id
   target_prefix = "s3-www/"
-}
-
-resource "aws_s3_bucket_acl" "public_assets" {
-  bucket = "${var.domain_name}-public-assets"
-  acl    = "private"
 }
 
 resource "aws_s3_bucket_policy" "public_assets" {

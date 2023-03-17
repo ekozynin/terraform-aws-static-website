@@ -21,16 +21,16 @@ resource "aws_s3_bucket_lifecycle_configuration" "logs" {
   bucket = "${var.domain_name}-logs"
 
   rule {
-    id = "${var.domain_name}-log-archiving"
+    id     = "${var.domain_name}-log-archiving"
     status = "Enabled"
 
     transition {
-      days = var.logs_transition_ia
+      days          = var.logs_transition_ia
       storage_class = "STANDARD_IA"
     }
 
     transition {
-      days = var.logs_transition_glacier
+      days          = var.logs_transition_glacier
       storage_class = "GLACIER"
     }
 
